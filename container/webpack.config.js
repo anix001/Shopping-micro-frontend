@@ -4,17 +4,17 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 module.exports ={
     mode:"development",
     devServer:{
-        port:3001
+        port:3000
     },
     plugins: [
         new HtmlWebpackPlugin({
             template:'./public/index.html'
         }),
         new ModuleFederationPlugin({
-            name:'products',
-            filename:'remoteEntry.js',
-            exposes:{
-                './productIndex': './src/index.js'
+            name:'container',
+            remotes:{
+                products:'products@http://localhost:3001/remoteEntry.js',
+                cart:'cart@http://localhost:3002/remoteEntry.js'
             }
         })
     ]
